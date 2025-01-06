@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+
 def get_products_from_page(url):
     response = requests.get(url)
 
@@ -21,9 +22,10 @@ def get_products_from_page(url):
     return products
 
 
-def scrape_products(base_url):
+def parse_products(base_url):
     all_products = []
-    max_pages = int(BeautifulSoup(requests.get(base_url).text, 'html.parser').find(class_='uss_last').get_text(strip=True))
+    max_pages = int(
+        BeautifulSoup(requests.get(base_url).text, 'html.parser').find(class_='uss_last').get_text(strip=True))
 
     for page in range(1, max_pages + 1):
         url = f"{base_url}?page={page}"
